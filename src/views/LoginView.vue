@@ -14,7 +14,7 @@ const login = () => {
     .then((res) => {
       console.log(res);
       localStorage.token = res.token;
-      router.push({ path: "/index" });
+      router.push({ path: "/index/video" });
     })
     .catch((err) => {
       console.log(err);

@@ -30,16 +30,16 @@ const register = () => {
 <template>
   <a-form>
     <a-form-item label="用户名">
-      <a-input :value="formState.username" />
+      <a-input v-model:value="formState.username" />
     </a-form-item>
     <a-form-item label="邮箱">
-      <a-input :value="formState.email" />
+      <a-input v-model:value="formState.email" />
     </a-form-item>
     <a-form-item label="密码">
-      <a-input :value="formState.password" type="password" />
+      <a-input v-model:value="formState.password" type="password" />
     </a-form-item>
     <a-form-item label="手机号">
-      <a-input :value="formState.phone" />
+      <a-input v-model:value="formState.phone" />
     </a-form-item>
     <a-form-item>
       <a-button type="primary" @click="register">注册</a-button>

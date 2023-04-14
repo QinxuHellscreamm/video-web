@@ -10,7 +10,7 @@ function filterNull(o) {
     if (typeof o[key] === "string") {
       o[key] = o[key].trim();
     } else if (typeof (o[key] == "object")) {
-      alert(o[key]);
+      // alert(o[key]);
       o[key] = filterNull(o[key]);
     } else if (typeof o[key] == "array") {
       o[key] = filterNull(o[key]);
