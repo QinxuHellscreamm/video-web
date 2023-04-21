@@ -13,7 +13,7 @@ const login = () => {
     .$api("post", "/user/login", formState)
     .then((res) => {
       console.log(res);
-      localStorage.token = res.token;
+      localStorage.token = "Bearer " + res.token;
       router.push({ path: "/index/video" });
     })
     .catch((err) => {

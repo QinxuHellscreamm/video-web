@@ -27,6 +27,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () =>
           import(/* webpackChunkName: "about" */ "../views/videoView.vue"),
       },
+      {
+        path: "/index/upload",
+        name: "upload",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "../views/uploadView.vue"),
+      },
     ],
   },
 ];
