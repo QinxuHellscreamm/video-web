@@ -1,13 +1,20 @@
 <script setup lang="ts">
-import { ref, getCurrentInstance } from "vue";
+import { ref, getCurrentInstance, reactive } from "vue";
 const { proxy } = getCurrentInstance();
 import { PlusOutlined } from "@ant-design/icons-vue";
+
 let file = ref(null);
+let fileContent = ref(null);
+
+const formState = reactive({
+  title: "",
+  description: "",
+});
 const fileChange = (e) => {
   const userData = '{"Vod":"11","Title":"123"}';
-  console.log(uploader.startUpload);
-  file = e.target.files[0];
-  uploader.addFile(file, null, null, null, userData);
+  console.log(e.target.files);
+  file.value = e.target.files[0];
+  uploader.addFile(file.value, null, null, null, userData);
   uploader.startUpload();
 };
 const uploaderFun = () => {
@@ -23,13 +30,16 @@ const uploaderFun = () => {
     addFileSuccess: (uploadInfo) => {
       console.log(uploadInfo);
     },
-    onUploadstarted: function (uploadInfo) {
+    onUploadstarted: (uploadInfo) => {
       console.log(uploadInfo);
       proxy.$api("get", "/video/getvod").then((data) => {
         console.log(data);
         let uploadAuth = data.vod.UploadAuth;
         let uploadAddress = data.vod.UploadAddress;
         let videoId = data.vod.VideoId;
+        let blob = new Blob([uploadInfo.file]);
+        fileContent.value = URL.createObjectURL(blob);
+
         uploader.setUploadAuthAndAddress(
           uploadInfo,
           uploadAuth,
@@ -43,26 +53,44 @@ const uploaderFun = () => {
   return obj;
 };
 const uploader = uploaderFun();
-const startUpload = () => {
-  uploader.startUpload();
-};
+
 console.log(uploader);
 </script>
 
 <template>
-  <label tabindex="0" class="ant-upload" role="button" for="fileUpload">
-    <div class="upload">
-      <input
-        type="file"
-        capture="false"
-        style="display: none"
-        id="fileUpload"
-        @change="fileChange($event)"
-      />
-      <plus-outlined :style="{ fontSize: '20px', lineHeight: '104px' }" />
-    </div>
-    <button @click="startUpload">上传</button>
-  </label>
+  <div>
+    <label tabindex="0" class="ant-upload" role="button" for="fileUpload">
+      <div class="upload">
+        <input
+          type="file"
+          capture="false"
+          style="display: none"
+          id="fileUpload"
+          accept="video/mp4"
+          @change="fileChange($event)"
+        />
+        <video :src="fileContent" v-if="fileContent" style="width: 100%;height: 100%"></video>
+        <plus-outlined :style="{ fontSize: '20px', lineHeight: '104px' }" v-else/>
+      </div>
+
+    </label>
+    <a-form
+      :label-col="{ span: 8 }"
+      :wrapper-col="{ span: 16 }"
+      :model="formState"
+    >
+      <a-form-item label="邮箱">
+        <a-input v-model:value="formState.title" />
+      </a-form-item>
+      <a-form-item label="密码">
+        <a-input v-model:value="formState.description" type="password" />
+      </a-form-item>
+      <a-form-item>
+        <!--        <a-button type="link" @click="toRegister">注册</a-button>-->
+        <!--        <a-button type="primary" @click="login">登录</a-button>-->
+      </a-form-item>
+    </a-form>
+  </div>
 </template>
 
 <style scoped lang="scss">
