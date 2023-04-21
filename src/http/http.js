@@ -1,5 +1,6 @@
 import axios from "axios";
-var root2 = "http://39.106.21.210/api/v1";
+const root2 = process.env.VUE_APP_BASE_API;
+
 //参数过滤(去空白)
 function filterNull(o) {
   for (var key in o) {
