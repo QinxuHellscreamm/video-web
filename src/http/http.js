@@ -44,7 +44,7 @@ function apiAxios(method, url, params, success) {
         resolve(res.data);
       })
       .catch(function (error) {
-        reject(error);
+        reject(error.response.data);
       });
   });
 }

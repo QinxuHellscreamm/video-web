@@ -18,10 +18,7 @@ const login = () => {
     })
     .catch((err) => {
       console.log(err);
-      if (err.code == "ERR_BAD_REQUEST") {
-        console.log(proxy.$message);
-        proxy.$message.error(err.response.data);
-      }
+      proxy.$message.error(err);
     });
 };
 

@@ -19,10 +19,7 @@ const register = () => {
     })
     .catch((err) => {
       console.log(err);
-      if (err.code == "ERR_BAD_REQUEST") {
-        console.log(proxy.$message);
-        proxy.$message.error(err.response.data.error.errors[0].msg);
-      }
+      proxy.$message.error(err.errors[0].msg);
     });
 };
 </script>
