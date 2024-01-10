@@ -25,7 +25,9 @@ const routes: Array<RouteRecordRaw> = [
         path: "/index/video",
         name: "video",
         component: () =>
-          import(/* webpackChunkName: "about" */ "../views/videoView.vue"),
+          import(
+            /* webpackChunkName: "about" */ "../views/videoView/videoView.vue"
+          ),
       },
       {
         path: "/index/upload",
@@ -34,6 +36,14 @@ const routes: Array<RouteRecordRaw> = [
           import(/* webpackChunkName: "about" */ "../views/uploadView.vue"),
       },
     ],
+  },
+  {
+    path: "/video/videoDetail",
+    name: "videoDetail",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../views/videoView/videoDetail.vue"
+        ),
   },
 ];
 
